@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Add</title>
+
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav th:replace="index.html :: nav"></nav>
+    <div class="container mt-3">
+ <!-- Alert -->
+    <div class="alert alert-dismissible alert-success"  th:if="${msg}">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong th:text="${msg}"></strong>
+    </div>
+  
+      <div class="row">
+         <div class="col-6 m-auto">
+             <h4 class="mt-4" th:text="${action}">Add Employee</h4>
+          <form action="" method="post" th:action="@{/add}" th:object="${user}">
+            <input type="hidden" th:value="*{id}" name="id" />
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                th:filed="${user.name}"
+                th:value="${user.name}"
+                placeholder="Entre Your Name"
+                th:classappend="${#fields.hasErrors('name')} ? is-invalid :''"
+              />
+              <div
+                class="invalid-feedback"
+                th:if="${#fields.hasErrors('name')}"
+                th:errors="*{name}"
+              ></div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                th:filed="${user.email}"
+                th:value="${user.email}"
+                placeholder="Entre Your Email"
+                th:classappend="${#fields.hasErrors('email')} ? is-invalid :''"
+              />
+              <div
+                class="invalid-feedback"
+                th:if="${#fields.hasErrors('email')}"
+                th:errors="*{email}"
+              ></div>
+            </div>
+
+            <!-- This To Fill The Combo Box   -->
+
+            <div class="form-group">
+              <label for="dep">Entre Department</label>
+              <select class="form-control" th:classappend="${errorfiled} ? is-invalid :''" id="dep" name="departments">
+                <option value="-1">Select Department</option>
+                <option
+                  th:each="department : ${listDep}"
+                  th:value="${department.id}"
+                  th:text="${department.name}"
+                  th:selected="${department.id==user.departmentId.id}"
+                ></option>
+              </select>
+              <div
+                class="invalid-feedback"
+                th:if="${errorfiled}"
+                th:text="${errorfiled}"
+              ></div>
+            </div>
+            <div class="form-group">
+              <label for="name">Sal</label>
+              <input
+                type="text"
+                class="form-control"
+                id="sal"
+                name="sal"
+                th:filed="${user.sal}"
+                th:value="${user.sal}"
+                th:classappend="${#fields.hasErrors('sal')} ? is-invalid :''"
+              />
+              <div
+                class="invalid-feedback"
+                th:if="${#fields.hasErrors('sal')}"
+                th:errors="*{sal}"
+              ></div>
+            </div>
+            <button type="submit" class="btn btn-success btn-block" th:text="${action}" >Add Employee</button>
+
+          </form>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

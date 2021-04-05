@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Home Page</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav
+      th:fragment="nav"
+      class="navbar navbar-expand navbar-dark bg-primary mb-4"
+    >
+      <ul class="nav navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" th:href="@{/}"
+            >Home <span class="sr-only">(current)</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/addEmployee}">Add Employes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/adddepartment}">Add Department</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/about}">About</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container">
+    
+      <div class="alert alert-dismissible alert-success"  th:if="${msg}">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong th:text="${msg}"></strong>
+    </div>
+  
+      <div class="mr-1 ml-2 mt-3">
+        <div class="row">
+            <h4>List Of Employes</h4>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Department</th>
+                  <th>Sal</th>
+                  <th colspan="2">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="user : ${listUsers}">
+                  <td scope="row" th:text="${user.id}">Id</td>
+                  <td th:text="${user.name}">Name</td>
+                  <td th:text="${user.email}">Email@com</td>
+                  <td th:text="${user.departmentId.name}">It</td>
+                  <td th:text="${user.sal}">12344</td>
+                  <td>
+                    <a
+                      onclick="return confirm('Do You Want To Del ?');"
+                      th:href="@{/del/{id} (id=${user.id})}"
+                      class="btn btn-danger"
+                      >Delete</a
+                    >
+                  </td>
+                  <td>
+                    <a
+                      class="btn btn-primary"
+                      th:href="@{/update/{id} (id=${user.id})}"
+                      >Update
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-9">
+            <h4>List Of Departements</h4>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th colspan="2">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="department : ${listDepartments}">
+                  <td scope="row" th:text="${department.id}">Id</td>
+                  <td th:text="${department.name}">Name</td>
+                  <td th:text="${department.desc}">Description</td>
+                  <td>
+                    <a
+                      href=""
+                      onclick="return confirm('Do You Want To Del ?');"
+                      class="btn btn-danger"
+                      th:href="@{/deletdep/{id} (id=${department.id})}"
+                      >Delete</a
+                    >
+                  </td>
+                  <td>
+                    <a
+                      href=""
+                      class="btn btn-primary"
+                      th:href="@{/updatedep/{id} (id=${department.id})}"
+                      >Update</a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
